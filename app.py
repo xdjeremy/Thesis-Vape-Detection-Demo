@@ -409,14 +409,14 @@ if process_uploaded_file is not None:
         
         with col1:
             st.write("**Original Image**")
-            st.image(image, use_column_width=True)
+            st.image(image, use_container_width=True)
         
         with col2:
             st.write("**🔍 Base Model**")
             with st.spinner("Processing with base model..."):
                 base_result, base_inference, base_detections = process_image_enhanced(image_bgr, base_model, conf_threshold, is_pose=False)
                 base_result_rgb = cv2.cvtColor(base_result, cv2.COLOR_BGR2RGB)
-                st.image(base_result_rgb, use_column_width=True)
+                st.image(base_result_rgb, use_container_width=True)
                 
                 # Show metrics
                 st.metric("Detections", len(base_detections))
@@ -429,7 +429,7 @@ if process_uploaded_file is not None:
             with st.spinner("Processing with pose model..."):
                 pose_result, pose_inference, pose_detections = process_image_enhanced(image_bgr, pose_model, conf_threshold, is_pose=True)
                 pose_result_rgb = cv2.cvtColor(pose_result, cv2.COLOR_BGR2RGB)
-                st.image(pose_result_rgb, use_column_width=True)
+                st.image(pose_result_rgb, use_container_width=True)
                 
                 # Show metrics
                 st.metric("Detections", len(pose_detections))
@@ -453,7 +453,7 @@ if process_uploaded_file is not None:
                     matched_pairs, base_unmatched, pose_unmatched
                 )
                 analysis_result_rgb = cv2.cvtColor(analysis_result, cv2.COLOR_BGR2RGB)
-                st.image(analysis_result_rgb, use_column_width=True)
+                st.image(analysis_result_rgb, use_container_width=True)
                 
                 # Show analysis metrics
                 st.metric("✅ Matched", len(matched_pairs))
@@ -578,9 +578,9 @@ if process_uploaded_file is not None:
                     
                     # Update display
                     with base_placeholder:
-                        st.image(base_rgb, use_column_width=True)
+                        st.image(base_rgb, use_container_width=True)
                     with pose_placeholder:
-                        st.image(pose_rgb, use_column_width=True)
+                        st.image(pose_rgb, use_container_width=True)
                     
                     # Update metrics
                     with base_metrics:
@@ -707,7 +707,7 @@ elif input_type == "📹 Live Camera" and 'camera_active' in st.session_state an
                 
                 # Display original frame
                 frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                live_placeholder.image(frame_rgb, use_column_width=True)
+                live_placeholder.image(frame_rgb, use_container_width=True)
                 
                 # Process with both models
                 base_result, base_inf, base_detections = process_image_enhanced(frame, base_model, conf_threshold, is_pose=False)
@@ -729,9 +729,9 @@ elif input_type == "📹 Live Camera" and 'camera_active' in st.session_state an
                 pose_rgb = cv2.cvtColor(pose_result, cv2.COLOR_BGR2RGB)
                 analysis_rgb = cv2.cvtColor(analysis_result, cv2.COLOR_BGR2RGB)
                 
-                base_placeholder.image(base_rgb, use_column_width=True)
-                pose_placeholder.image(pose_rgb, use_column_width=True)
-                analysis_placeholder.image(analysis_rgb, use_column_width=True)
+                base_placeholder.image(base_rgb, use_container_width=True)
+                pose_placeholder.image(pose_rgb, use_container_width=True)
+                analysis_placeholder.image(analysis_rgb, use_container_width=True)
                 
                 # Update metrics
                 processing_time = time.time() - start_time
@@ -794,21 +794,21 @@ if input_type == "📹 Live Camera" and 'freeze_frame' in st.session_state and s
     
     with col1:
         st.write("**Original Frame**")
-        st.image(st.session_state.freeze_frame['original'], use_column_width=True)
+        st.image(st.session_state.freeze_frame['original'], use_container_width=True)
     
     with col2:
         st.write("**Base Model**")
-        st.image(st.session_state.freeze_frame['base'], use_column_width=True)
+        st.image(st.session_state.freeze_frame['base'], use_container_width=True)
         st.metric("Detections", st.session_state.freeze_frame['metrics']['base_detections'])
     
     with col3:
         st.write("**Pose Model**")
-        st.image(st.session_state.freeze_frame['pose'], use_column_width=True)
+        st.image(st.session_state.freeze_frame['pose'], use_container_width=True)
         st.metric("Detections", st.session_state.freeze_frame['metrics']['pose_detections'])
     
     with col4:
         st.write("**Analysis**")
-        st.image(st.session_state.freeze_frame['analysis'], use_column_width=True)
+        st.image(st.session_state.freeze_frame['analysis'], use_container_width=True)
         st.metric("False Positives", st.session_state.freeze_frame['metrics']['false_positives'])
         st.metric("Pose Advantages", st.session_state.freeze_frame['metrics']['pose_advantages'])
     
